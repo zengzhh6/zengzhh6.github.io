@@ -1,8 +1,9 @@
-function FindProxyForUrl(url, host) {
-    if (shExpMatch(url, "*.zhihu.com*")) {
-        return "PROXY 127.0.0.1:65000";
-        // fake destination proxy -- will fail
+function FindProxyForURL(url, host) {
+    // Bypass the proxy for *.zhihu.com
+        if (dnsDomainIs(host, ".zhihu.com")) {
+        return "DIRECT";
     }
-    return "DIRECT";
-    // this leads folks out to the Internet for everything else
-}
+
+    // fake proxy, will fail
+    return "PROXY http://127.0.0.1:18080";
+    }
